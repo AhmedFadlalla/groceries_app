@@ -5,6 +5,7 @@ import 'package:grocery_app/core/services/dio_helper.dart';
 import 'package:grocery_app/core/utils/app_constant.dart';
 import 'package:grocery_app/core/utils/constrant.dart';
 import 'package:grocery_app/data/models/auth_data_model.dart';
+import 'package:grocery_app/data/models/user_data_model.dart';
 import 'package:grocery_app/presentation/screens/component/compenent.dart';
 
 import '../../core/utils/end_point.dart';
@@ -14,17 +15,16 @@ import '../models/product_data_model.dart';
 
 abstract class BaseRemoteDataSource {
   Future<void> signUpWithEmailAndPassword(UserParameter parameter);
-
   Future<AuthDataModel> signInWithEmailAndPassword(UserParameter parameter);
-
   Future<void> logout();
-
+  Future<UserDataModel> getProfileData();
   Future<List<CategoryDataModel>> getCategoriesData();
   Future<List<ProductDataModel>> getProductsDataByCategory(StatusParameter parameter);
   Future<ProductDataModel> getProductDetailsData(StatusParameter parameter);
   Future<void> addProductToCart(StatusParameter parameter);
   Future<List<CartProductDataModel>> getProductsFromCart();
   Future<List<ProductDataModel>> searchProductByName(SearchStatus parameter);
+  Future<void> addProductToFavourite(StatusParameter parameter);
 }
 
 class RemoteDataSource extends BaseRemoteDataSource {
@@ -163,6 +163,31 @@ class RemoteDataSource extends BaseRemoteDataSource {
         }
 
 
+    } else {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+  @override
+  Future<UserDataModel> getProfileData() async{
+    final response =
+    await DioHelper.getData(url: profile,token: uId);
+    print(response.data);
+    if (response.statusCode == 200) {
+      return UserDataModel.fromJson(response.data["data"]);
+    } else {
+      throw ServerException(
+          errorMessageModel: ErrorMessageModel.fromJson(response.data));
+    }
+  }
+
+  @override
+  Future<void> addProductToFavourite(StatusParameter parameter) async{
+    final response = await DioHelper.postData(
+        url: addProductToCartEndPoint(parameter.id), token: uId);
+    print(response.data);
+    if (response.statusCode == 200) {
+      print("Added Successfully");
     } else {
       throw ServerException(
           errorMessageModel: ErrorMessageModel.fromJson(response.data));

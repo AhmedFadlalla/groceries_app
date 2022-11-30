@@ -21,6 +21,7 @@ class AddToCartBottom extends StatelessWidget {
         builder: (context,state){
           print(id);
           return  defaultButton(function: (){
+            print("click");
             sl<CartBloc>().add(AddProductToCartEvent(id));
           }, text: "Add To Basket");
         },

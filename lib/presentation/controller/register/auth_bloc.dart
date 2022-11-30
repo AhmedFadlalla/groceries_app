@@ -5,6 +5,7 @@ import 'package:grocery_app/core/use_case/base_use_case.dart';
 import 'package:grocery_app/core/utils/enum.dart';
 
 import '../../../core/utils/constrant.dart';
+import '../../../domain/use_case/get_prodfile_data_use_case.dart';
 import '../../../domain/use_case/logout_use_case.dart';
 import '../../../domain/use_case/sign_in_with_email_and_password_use_case.dart';
 import '../../../domain/use_case/sign_up_with_email_and_password_use_case.dart';
@@ -16,11 +17,14 @@ class AuthBloc extends Bloc<BaseAuthEvent, AuthState> {
   final SignInWithEmailAndPasswordUseCase signInWithEmailAndPasswordUseCase;
   final SignUpWithEmailAndPasswordUseCase signUpWithEmailAndPasswordUseCase;
   final LogoutUseCase logoutUseCase;
+  final GetProfileDataUseCase getProfileDataUseCase;
   AuthBloc(
       this.signInWithEmailAndPasswordUseCase,
       this.signUpWithEmailAndPasswordUseCase,
-      this.logoutUseCase) :
-        super(AuthState()) {
+      this.logoutUseCase,
+      this.getProfileDataUseCase
+      ) :
+        super(const AuthState()) {
     on<SignUpEvent>((event, emit)async {
       final result=await signUpWithEmailAndPasswordUseCase(UserParameter(
         name: event.userName,
@@ -71,6 +75,23 @@ class AuthBloc extends Bloc<BaseAuthEvent, AuthState> {
           state.copyWith(
               logoutState: RequestState.loaded,
 
+          )
+      ));
+    });
+    on<GetUserDataEvent>((event, emit) async{
+      final result=await getProfileDataUseCase(const NoParameters());
+
+      result.fold((l) =>
+        emit(
+            state.copyWith(
+                userDataState: RequestState.error,
+                userDataMessage: l.message
+            )
+
+        ), (r) => emit(
+          state.copyWith(
+            userDataState: RequestState.loaded,
+            userData: r
           )
       ));
     });

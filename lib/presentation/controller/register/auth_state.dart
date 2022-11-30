@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:grocery_app/core/utils/enum.dart';
+import 'package:grocery_app/domain/entities/base_user_data.dart';
 
 import '../../../domain/entities/base_auth_data.dart';
 
@@ -11,8 +12,11 @@ class AuthState extends Equatable{
   final String userSignInMessage;
   final RequestState logoutState;
   final String logoutMessage;
+  final BaseUserData? userData;
+  final RequestState userDataState;
+  final String userDataMessage;
 
-  AuthState(
+ const  AuthState(
       {
         this.userSignUpState=RequestState.loading,
       this.userSignUpMessage='',
@@ -20,7 +24,11 @@ class AuthState extends Equatable{
       this.userSignInState=RequestState.loading,
       this.userSignInMessage='',
       this.logoutState=RequestState.loading,
-      this.logoutMessage=''});
+      this.logoutMessage='',
+        this.userData,
+        this.userDataState=RequestState.loading,
+        this.userDataMessage=''
+      });
 
 
    AuthState copyWith({
@@ -30,7 +38,10 @@ RequestState? userSignUpState,
      RequestState? userSignInState,
      String? userSignInMessage,
      RequestState? logoutState,
-     String? logoutMessage
+     String? logoutMessage,
+      BaseUserData? userData,
+      RequestState? userDataState,
+      String? userDataMessage,
 }) {
      return AuthState(
          userSignUpState: userSignUpState??this.userSignUpState,
@@ -39,7 +50,10 @@ RequestState? userSignUpState,
          userSignInState: userSignInState??this.userSignInState,
          userSignInMessage: userSignInMessage??this.userSignInMessage,
        logoutState: logoutState??this.logoutState,
-       logoutMessage: logoutMessage??this.logoutMessage
+       logoutMessage: logoutMessage??this.logoutMessage,
+       userData: userData??this.userData,
+       userDataState: userDataState??this.userDataState,
+       userDataMessage: userDataMessage??this.userDataMessage
      );
    }
 
@@ -47,6 +61,7 @@ RequestState? userSignUpState,
   List<Object?> get props => [
     userSignUpState,userSignUpMessage,
     userAccessToken,userSignInState,userSignInMessage,
-    logoutState,logoutMessage
+    logoutState,logoutMessage,
+    userData,userDataState,userDataMessage
   ];
 }

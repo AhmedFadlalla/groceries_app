@@ -23,3 +23,4 @@ class SignInEvent extends BaseAuthEvent{
   SignInEvent({required this.email,required this.password});
 }
 class LogoutEvent extends BaseAuthEvent{}
+class GetUserDataEvent extends BaseAuthEvent{}

@@ -145,9 +145,10 @@ class CartScreen extends StatelessWidget {
                     fontSize: 13.sp),
               ),
               SizedBox(height: 15.h,),
-
+              CounterComponent(price: data.price, visiable: true),
             ],
           ),
+
           Spacer(),
           IconButton(
               onPressed: () {},

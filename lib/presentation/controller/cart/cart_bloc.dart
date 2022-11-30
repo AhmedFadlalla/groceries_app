@@ -36,7 +36,7 @@ class CartBloc extends Bloc<BaseCartEvent, CartState> {
     });
     on<GetProductsFromCartEvent>((event, emit) async{
       final result=await getProductsFromCartUseCase(const NoParameters());
-
+      print(result);
       result.fold((l) => emit(
           state.copyWith(
               cartProductsState: RequestState.error,

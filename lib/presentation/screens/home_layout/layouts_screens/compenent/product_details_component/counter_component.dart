@@ -132,14 +132,14 @@ class _CounterComponentState extends State<CounterComponent> {
               ),
 
               if(widget.visiable==true)
-                 Text(
-                "\$${count*widget.price}",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 25, color: Colors.black),
+                Text(
+                  "\$${count*widget.price}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 25, color: Colors.black),
 
-              ),
+                ),
             ],
           );
         },

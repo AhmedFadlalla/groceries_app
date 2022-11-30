@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../core/utils/app_color.dart';
@@ -29,6 +30,44 @@ Widget defaultButton({
               color: Colors.white,
               fontSize: fontSize,
               fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+Widget logButton({
+  double width = double.infinity,
+  Color background = mainColor,
+  required var function,
+  required String text,
+  var fontSize,
+  bool isUpperCase = true,
+  double radius = 10.0,
+  required String icon
+}) =>
+    Container(
+      width: width,
+      height: 60.0,
+      margin: EdgeInsets.all(40),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius),
+        color: Color(0xffF2F3F2),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          children: [
+            Image.asset(icon),
+            SizedBox(width: 60.w,),
+            MaterialButton(
+              onPressed: function,
+              child: Text(
+                text,
+                style: TextStyle(
+                    color: mainColor,
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
         ),
       ),
     );
