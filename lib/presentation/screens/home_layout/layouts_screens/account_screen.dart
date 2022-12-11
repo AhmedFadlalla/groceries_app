@@ -99,7 +99,7 @@ class AccountScreen extends StatelessWidget {
           listener: (context,state){
             if(state.logoutState==RequestState.loaded){
               CachHelper.removeData(key: "uId").then((value) {
-                navigateTo(context, LoginScreen());
+                navigateAndFinish(context, LoginScreen());
               });
             }
           }),

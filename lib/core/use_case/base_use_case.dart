@@ -8,6 +8,9 @@ import '../utils/constrant.dart';
 abstract class BaseUseCase<T,Parameters>{
   Future<Either<Failure,T>> call(Parameters parameter,);
 }
+abstract class UseCase<T,Parameters>{
+  Future<T> call(Parameters parameter,);
+}
 abstract class BaseStreamUseCase<T,Parameters>{
   Stream<Either<Failure,T>> call(Parameters parameter,);
 }

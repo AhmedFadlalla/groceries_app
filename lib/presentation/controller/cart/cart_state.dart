@@ -5,7 +5,7 @@ import '../../../domain/entities/base_cart_product_data.dart';
 import '../../../domain/entities/base_product_data.dart';
 
 class CartState extends Equatable{
-  final RequestState addProductToCartState;
+  final RequestState? addProductToCartState;
   final String addProductToCartMessage;
   final List<BaseCartProductData> cartProducts;
   final RequestState cartProductsState;
@@ -16,7 +16,7 @@ class CartState extends Equatable{
 
 
   const CartState({
-    this.addProductToCartState=RequestState.loading,
+    this.addProductToCartState,
     this.addProductToCartMessage='',
     this.cartProducts=const [],
     this.cartProductsState=RequestState.loading,

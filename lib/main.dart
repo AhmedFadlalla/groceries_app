@@ -1,5 +1,7 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_app/core/services/cach_helper.dart';
 import 'package:grocery_app/core/services/dio_helper.dart';
@@ -7,14 +9,17 @@ import 'package:grocery_app/core/utils/app_color.dart';
 import 'package:grocery_app/presentation/screens/home_layout/home_layout.dart';
 import 'package:grocery_app/presentation/screens/register/login.dart';
 import 'package:grocery_app/presentation/screens/splash_screen.dart';
+import 'package:lottie/lottie.dart';
 import 'core/services/service_locator.dart';
 import 'core/utils/constrant.dart';
+import 'core/utils/observer.dart';
 import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
   await CachHelper.init();
+  Bloc.observer = MyBlocObserver();
   ServicesLocator().init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -78,7 +83,31 @@ class MyApp extends StatelessWidget {
 
         )
       ),
-      home: startWidget,
+      home: StreamBuilder<ConnectivityResult>(
+        stream: Connectivity().onConnectivityChanged,
+        builder: (context,snapshot){
+          switch(snapshot.data){
+            case ConnectivityResult.bluetooth:
+              return startWidget;
+            case ConnectivityResult.wifi:
+              return startWidget;
+            case ConnectivityResult.ethernet:
+              return startWidget;
+            case ConnectivityResult.mobile:
+              return startWidget;
+            case ConnectivityResult.none:
+              return Scaffold(
+                body: Center(
+                  child: Lottie.asset("assets/lottie/wifi.json"),
+                ),
+              );
+            case ConnectivityResult.vpn:
+              return startWidget;
+            default:
+              return startWidget;
+          }
+        },
+      ),
     );
   }
 }

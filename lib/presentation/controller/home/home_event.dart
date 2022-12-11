@@ -21,6 +21,5 @@ class GetProductDetailsDataEvent extends BaseHomeEvent{
 }
 class SearchProductByNameEvent extends BaseHomeEvent{
   final String name;
-
   const SearchProductByNameEvent({required this.name});
 }

@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:grocery_app/presentation/controller/home/home_bloc.dart';
 import 'package:grocery_app/presentation/controller/home/home_event.dart';
 import 'package:grocery_app/presentation/controller/home/home_state.dart';
 import 'package:grocery_app/presentation/screens/component/compenent.dart';
 
 import '../../../../../../core/services/service_locator.dart';
+import '../../../../../../core/utils/end_point.dart';
 import '../../../../../../core/utils/enum.dart';
 import 'add_to_cart_bottom.dart';
 import 'counter_component.dart';
@@ -30,10 +32,53 @@ class ProductDetailsBody extends StatelessWidget {
             case RequestState.loaded:
               var data=state.productDetailsData;
              return  Padding(
-               padding: const EdgeInsets.all(20.0),
+               padding: const EdgeInsets.all(10.0),
                child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
+                   Stack(
+                     children: [
+                       Container(
+                         width: 413.6,
+                         height: 371.44,
+                         alignment: Alignment.center,
+                         decoration: BoxDecoration(
+                           color: Color(0xffF2F3F2),
+                           borderRadius: BorderRadius.only(topLeft: Radius.circular(0),topRight: Radius.circular(0),bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25)),
+                           image: DecorationImage(
+                             image:
+                             data!.image.isEmpty || data.image == null?
+                             Image.asset('assets/icons/Group.png').image :
+                             Image.network(
+                               '$baseUrlImage${data.image}',
+                                 fit: BoxFit.fitWidth,
+                               errorBuilder: (context, object, stackTrace) {
+                                 return Image.asset('assets/icons/Group.png');
+                               },
+                             ).image,
+                           ),
+                         ),
+                         child : data.image.split('.').last.toLowerCase() == 'svg' ?
+                         SvgPicture.network(
+                           '$baseUrlImage/${data.image}',
+                           fit: BoxFit.fitWidth,
+                           width: 250,
+                           placeholderBuilder: (BuildContext context) => Container(
+                               padding: const EdgeInsets.all(10.0),
+                               child: const CircularProgressIndicator()),
+                         ) : Container(),
+                       ),
+                       Positioned(child: IconButton(onPressed: (){
+                         Navigator.pop(context);
+                       }, icon:const  Icon(Icons.arrow_back_ios_new_rounded))),
+                       Positioned(
+                           right: 0,
+                           child: IconButton(onPressed: (){
+                           },
+                               icon:const  Image(image: AssetImage("assets/icons/up.png"))))
+
+                     ],
+                   ),
                    Row(
                      children: [
                        Text(
@@ -133,7 +178,9 @@ class ProductDetailsBody extends StatelessWidget {
 
           }
         },
-        listener: (context,state){},
+        listener: (context,state){
+
+        },
       ),
     );
   }

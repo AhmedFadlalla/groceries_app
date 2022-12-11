@@ -94,90 +94,102 @@ class HomeScreen extends StatelessWidget {
     var height=MediaQuery.of(context).size.height;
     return BlocProvider(create: (context)=>sl<HomeBloc>(),
     child: BlocConsumer<HomeBloc,HomeState>(builder: (context,state){
-      return SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ConstComponent(),
-                SizedBox(height: height*0.03,),
-                Row(
-                  children: [
-                    Text("Exclusive Offer",
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                          color: Colors.black,
-                          fontSize: 25
-                      ),),
-                    const Spacer(),
-                    TextButton(
-                        onPressed: (){},
-                        child: const Text(
-                          "See all",
-                          style: TextStyle(
-                              color:  mainColor,
-                              fontSize: 18
-                          ),
-                        ))
-                  ],
-                ),
-                SizedBox(height: height*0.02,),
-                const CardComponent(
-                  id: 1,
-                ),
+      return RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.blue,
+        onRefresh: () async{
+          return Future<void>.delayed(const Duration(seconds: 1));
+        } ,
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ConstComponent(),
+                  SizedBox(height: height*0.03,),
+                  Row(
+                    children: [
+                      Text("Exclusive Offer",
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            color: Colors.black,
+                            fontSize: 25
+                        ),),
+                      const Spacer(),
+                      TextButton(
+                          onPressed: (){
+                            navigateTo(context, const CategoriesProductsScreen(id: 1,name: "Exclusive Offer",));
+                          },
+                          child: const Text(
+                            "See all",
+                            style: TextStyle(
+                                color:  mainColor,
+                                fontSize: 18
+                            ),
+                          ))
+                    ],
+                  ),
+                  SizedBox(height: height*0.02,),
+                  const CardComponent(
+                    id: 1,
+                  ),
 
-                SizedBox(height: height*0.02),
-                Row(
-                  children: [
-                    Text("Best Selling",
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                          color: Colors.black,
-                          fontSize: 25
-                      ),),
-                    const Spacer(),
-                    TextButton(
-                        onPressed: (){},
-                        child: const Text(
-                          "See all",
-                          style: TextStyle(
-                              color:  mainColor,
-                              fontSize: 18
-                          ),
-                        ))
-                  ],
-                ),
-                SizedBox(height: height*0.02),
-                const CardComponent(id: 7,),
-                SizedBox(height: height*0.02),
-                Row(
-                  children: [
-                    Text("Groceries",
-                      style: Theme.of(context).textTheme.headline1!.copyWith(
-                          color: Colors.black,
-                          fontSize: 25
-                      ),),
-                    const Spacer(),
-                    TextButton(
-                        onPressed: (){
-                          navigateTo(context, const CategoriesProductsScreen(id: 0,name: "All Products",));
-                        },
-                        child: const Text(
-                          "See all",
-                          style: TextStyle(
-                              color:  mainColor,
-                              fontSize: 18
-                          ),
-                        ))
-                  ],
-                ),
-                SizedBox(height: height*0.02),
-                const GroceriesListComponent(),
-                SizedBox(height: height*0.02),
-                const CardComponent(id: 9)
+                  SizedBox(height: height*0.02),
+                  Row(
+                    children: [
+                      Text("Best Selling",
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            color: Colors.black,
+                            fontSize: 25
+                        ),),
+                      const Spacer(),
+                      TextButton(
+                          onPressed: (){
+                            navigateTo(context, const CategoriesProductsScreen(id: 1,name: "Best Selling",));
 
-              ],
+                          },
+                          child: const Text(
+                            "See all",
+                            style: TextStyle(
+                                color:  mainColor,
+                                fontSize: 18
+                            ),
+                          ))
+                    ],
+                  ),
+                  SizedBox(height: height*0.02),
+                  const CardComponent(id: 7,),
+                  SizedBox(height: height*0.02),
+                  Row(
+                    children: [
+                      Text("Groceries",
+                        style: Theme.of(context).textTheme.headline1!.copyWith(
+                            color: Colors.black,
+                            fontSize: 25
+                        ),),
+                      const Spacer(),
+                      TextButton(
+                          onPressed: (){
+                            navigateTo(context, const CategoriesProductsScreen(id: 0,name: "All Products",));
+                          },
+                          child: const Text(
+                            "See all",
+                            style: TextStyle(
+                                color:  mainColor,
+                                fontSize: 18
+                            ),
+                          ))
+                    ],
+                  ),
+                  SizedBox(height: height*0.02),
+                  const GroceriesListComponent(),
+                  SizedBox(height: height*0.02),
+                  const CardComponent(id: 9)
 
+                ],
+
+              ),
             ),
           ),
         ),

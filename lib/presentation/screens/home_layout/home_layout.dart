@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/core/utils/app_color.dart';
 
+import '../../../core/services/cach_helper.dart';
+import '../../../core/utils/constrant.dart';
 import 'layouts_screens/account_screen.dart';
 import 'layouts_screens/cart.dart';
 import 'layouts_screens/explore_screen.dart';
@@ -15,6 +17,11 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
+  @override
+  void initState() {
+    uId=CachHelper.getData(key: "uId");
+    super.initState();
+  }
   int currentIndex=0;
   List<Widget> screens=[
     HomeScreen(),

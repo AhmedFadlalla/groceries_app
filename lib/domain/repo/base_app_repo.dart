@@ -8,6 +8,7 @@ import 'package:grocery_app/domain/entities/base_product_data.dart';
 import 'package:grocery_app/domain/entities/base_user_data.dart';
 
 import '../entities/base_cart_product_data.dart';
+import '../entities/base_order_data.dart';
 abstract class BaseAppRepository {
 
   Future<Either<Failure,void>> signUpWithEmailAndPassword(UserParameter parameter);
@@ -19,8 +20,9 @@ abstract class BaseAppRepository {
   Future<Either<Failure,BaseProductData>> getProductDetailsData(StatusParameter parameter);
   Future<Either<Failure,void>> addProductToCart(StatusParameter parameter);
   Future<Either<Failure,List<BaseCartProductData>>> getProductsFromCart();
-  Future<Either<Failure,List<BaseProductData>>> searchProductByName(SearchStatus parameter);
+  Future<List<BaseProductData>> searchProductByName(SearchStatus parameter);
   // Future<Either<Failure,void>> addProductToFavourite(StatusParameter parameter);
+  Future<Either<Failure,BaseOrderData>> sendOrderDataData(OrderParameter parameter);
 
 
 

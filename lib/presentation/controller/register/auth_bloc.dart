@@ -62,7 +62,7 @@ class AuthBloc extends Bloc<BaseAuthEvent, AuthState> {
     });
     on<LogoutEvent>((event, emit) async{
       final result=await logoutUseCase(const NoParameters());
-
+      print(result);
       result.fold((l) {
         print(l.message);
         emit(

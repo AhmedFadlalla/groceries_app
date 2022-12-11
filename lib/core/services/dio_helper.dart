@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../utils/end_point.dart';
+
 class DioHelper{
 
    static late Dio dio;
@@ -8,7 +10,7 @@ class DioHelper{
   static init(){
     dio=Dio(
       BaseOptions(
-        baseUrl:'https://eraastore.eraasoft.com/api/',
+        baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
 
       )

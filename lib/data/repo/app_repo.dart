@@ -5,6 +5,7 @@ import 'package:grocery_app/core/utils/constrant.dart';
 import 'package:grocery_app/data/data_source/base_remote_data_source.dart';
 import 'package:grocery_app/domain/entities/base_auth_data.dart';
 import 'package:grocery_app/domain/entities/base_category_data.dart';
+import 'package:grocery_app/domain/entities/base_order_data.dart';
 import 'package:grocery_app/domain/entities/base_product_data.dart';
 import 'package:grocery_app/domain/entities/base_user_data.dart';
 import 'package:grocery_app/domain/repo/base_app_repo.dart';
@@ -85,7 +86,6 @@ class AppRepository extends BaseAppRepository{
       return Left(ServerFailure(failure.message));
     }
   }
-
   @override
   Future<Either<Failure, List<CartProductDataModel>>> getProductsFromCart() async{
     final result=await baseRemoteDataSource.getProductsFromCart();
@@ -95,21 +95,29 @@ class AppRepository extends BaseAppRepository{
       return Left(ServerFailure(failure.message));
     }
   }
-
   @override
-  Future<Either<Failure, List<BaseProductData>>> searchProductByName(SearchStatus parameter) async{
+  Future< List<BaseProductData>> searchProductByName(SearchStatus parameter) async{
     final result=await baseRemoteDataSource.searchProductByName(parameter);
+    try{
+      return result;
+    }on ServerFailure catch(failure){
+      throw Left(ServerFailure(failure.message));
+    }
+
+  }
+  @override
+  Future<Either<Failure, BaseUserData>> getProfileData() async{
+    final result=await baseRemoteDataSource.getProfileData();
     try{
       return Right(result);
     }on ServerFailure catch(failure){
       return Left(ServerFailure(failure.message));
     }
-
   }
 
   @override
-  Future<Either<Failure, BaseUserData>> getProfileData() async{
-    final result=await baseRemoteDataSource.getProfileData();
+  Future<Either<Failure, BaseOrderData>> sendOrderDataData(OrderParameter parameter) async{
+    final result=await baseRemoteDataSource.sendOrderData(parameter);
     try{
       return Right(result);
     }on ServerFailure catch(failure){

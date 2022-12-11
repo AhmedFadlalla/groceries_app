@@ -7,15 +7,15 @@ import 'package:grocery_app/domain/repo/base_app_repo.dart';
 
 import '../../core/utils/constrant.dart';
 
-class SearchProductByNameUseCase extends BaseUseCase<List<BaseProductData>,SearchStatus>{
+class SearchProductByNameUseCase extends UseCase<List<BaseProductData>,SearchStatus>{
   final BaseAppRepository baseAppRepository;
 
 
   SearchProductByNameUseCase(this.baseAppRepository);
 
   @override
-  Future<Either<Failure, List<BaseProductData>>> call(SearchStatus parameter) {
-    return  baseAppRepository.searchProductByName(parameter);
+  Future< List<BaseProductData>> call(SearchStatus parameter) async{
+    return  await baseAppRepository.searchProductByName(parameter);
   }
 
 }

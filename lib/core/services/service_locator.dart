@@ -3,6 +3,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:grocery_app/data/data_source/base_remote_data_source.dart';
 import 'package:grocery_app/domain/use_case/get_categories_data_use_case.dart';
+import 'package:grocery_app/domain/use_case/send_order_data_use_case.dart';
+import 'package:grocery_app/presentation/controller/counter/search_cubit.dart';
 import 'package:grocery_app/presentation/controller/home/home_bloc.dart';
 import 'package:grocery_app/presentation/controller/home/home_event.dart';
 import 'package:grocery_app/presentation/controller/register/auth_bloc.dart';
@@ -20,6 +22,7 @@ import '../../domain/use_case/search_product_by_name_use_case.dart';
 import '../../domain/use_case/sign_in_with_email_and_password_use_case.dart';
 import '../../domain/use_case/sign_up_with_email_and_password_use_case.dart';
 import '../../presentation/controller/cart/cart_bloc.dart';
+import '../../presentation/controller/order/order_bloc.dart';
 
 
 
@@ -28,12 +31,12 @@ class ServicesLocator{
   void init(){
     //Bloc
     sl.registerLazySingleton<AuthBloc>(() =>AuthBloc(sl(),sl(),sl(),sl()));
-    sl.registerFactory<HomeBloc>(() =>HomeBloc(sl(),sl(),sl(),sl()) );
+    sl.registerFactory<HomeBloc>(() =>HomeBloc(sl(),sl(),sl()));
     sl.registerFactory<CartBloc>(() =>CartBloc(sl(),sl()));
-
+    sl.registerFactory<OrderBloc>(() =>OrderBloc(sl()));
+    sl.registerFactory<SearchCubit>(() =>SearchCubit());
     // كل ما بنادي ع بلوك هيعمل نيو اوبجكت علشان يجيب الداتا جديده
     //use case
-
     sl.registerLazySingleton<SignUpWithEmailAndPasswordUseCase>(() =>SignUpWithEmailAndPasswordUseCase(sl()) );
     sl.registerLazySingleton<SignInWithEmailAndPasswordUseCase>(() =>SignInWithEmailAndPasswordUseCase(sl()) );
     sl.registerLazySingleton<GetCategoriesDataUseCase>(() =>GetCategoriesDataUseCase(sl()) );
@@ -44,6 +47,7 @@ class ServicesLocator{
     sl.registerLazySingleton<LogoutUseCase>(() =>LogoutUseCase(sl()));
     sl.registerLazySingleton<SearchProductByNameUseCase>(() =>SearchProductByNameUseCase(sl()));
     sl.registerLazySingleton<GetProfileDataUseCase>(() =>GetProfileDataUseCase(sl()));
+    sl.registerLazySingleton<SendOrderDataUseCase>(() =>SendOrderDataUseCase(sl()));
 
 
     //Repository
