@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_app/core/services/cach_helper.dart';
 import 'package:grocery_app/core/services/dio_helper.dart';
@@ -42,73 +43,76 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: lightScaffoldColor,
-        fontFamily: GoogleFonts.poppins(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: Colors.white
-        ).fontFamily,
-        textTheme: const TextTheme(
-          headline1: TextStyle(
-            color: Colors.white,
-            fontSize: 45
-          ),
-          caption: TextStyle(
-            fontSize: 17,
-            color: lightScaffoldColor,
-            fontWeight: FontWeight.w400
-
-          ),
-          bodyText1: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.normal,
-            color: Colors.black,
-            height: 25
-          )
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: mainColor,
-          unselectedItemColor: darkThemeColor,
-          showUnselectedLabels: true,
-          selectedIconTheme: IconThemeData(
-            color: mainColor,
-
-          )
-        ),
-        appBarTheme:  AppBarTheme(
-          backgroundColor: lightScaffoldColor,
-
-        )
-      ),
-      home: StreamBuilder<ConnectivityResult>(
-        stream: Connectivity().onConnectivityChanged,
-        builder: (context,snapshot){
-          switch(snapshot.data){
-            case ConnectivityResult.bluetooth:
-              return startWidget;
-            case ConnectivityResult.wifi:
-              return startWidget;
-            case ConnectivityResult.ethernet:
-              return startWidget;
-            case ConnectivityResult.mobile:
-              return startWidget;
-            case ConnectivityResult.none:
-              return Scaffold(
-                body: Center(
-                  child: Lottie.asset("assets/lottie/wifi.json"),
+    return ScreenUtilInit(builder: (context,Widget? widget){
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            scaffoldBackgroundColor: lightScaffoldColor,
+            fontFamily: GoogleFonts.poppins(
+                fontSize: 40.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+            ).fontFamily,
+            textTheme:  TextTheme(
+                headline1: TextStyle(
+                    color: Colors.white,
+                    fontSize: 45.sp
                 ),
-              );
-            case ConnectivityResult.vpn:
-              return startWidget;
-            default:
-              return startWidget;
-          }
-        },
-      ),
-    );
+                caption: TextStyle(
+                    fontSize: 17.sp,
+                    color: lightScaffoldColor,
+                    fontWeight: FontWeight.w400
+
+                ),
+                bodyText1: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                    height: 25.h
+                )
+            ),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                selectedItemColor: mainColor,
+                unselectedItemColor: darkThemeColor,
+                showUnselectedLabels: true,
+                selectedIconTheme: IconThemeData(
+                  color: mainColor,
+
+                )
+            ),
+            appBarTheme:  AppBarTheme(
+              backgroundColor: lightScaffoldColor,
+
+            )
+        ),
+        home: StreamBuilder<ConnectivityResult>(
+          stream: Connectivity().onConnectivityChanged,
+          builder: (context,snapshot){
+            switch(snapshot.data){
+              case ConnectivityResult.bluetooth:
+                return startWidget;
+              case ConnectivityResult.wifi:
+                return startWidget;
+              case ConnectivityResult.ethernet:
+                return startWidget;
+              case ConnectivityResult.mobile:
+                return startWidget;
+              case ConnectivityResult.none:
+                return Scaffold(
+                  body: Center(
+                    child: Lottie.asset("assets/lottie/wifi.json"),
+                  ),
+                );
+              case ConnectivityResult.vpn:
+                return startWidget;
+              default:
+                return startWidget;
+            }
+          },
+        ),
+      );
+
+    });
   }
 }
 

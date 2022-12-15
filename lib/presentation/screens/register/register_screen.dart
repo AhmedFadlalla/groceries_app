@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery_app/core/utils/enum.dart';
 import 'package:grocery_app/presentation/controller/register/auth_bloc.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery_app/presentation/screens/component/compenent.dart';
 import 'package:grocery_app/presentation/screens/register/login.dart';
 
@@ -25,7 +25,7 @@ class SignUpScreen extends StatelessWidget {
       create: (context) => sl<AuthBloc>(),
       child: BlocConsumer<AuthBloc,AuthState>(
           builder: (context, state) {
-            return CustomMainPage(
+            return ScreenUtilInit(builder: (context,Widget? widget)=>CustomMainPage(
               widget: Form(
                 key: formKey,
                 child: Padding(
@@ -36,23 +36,23 @@ class SignUpScreen extends StatelessWidget {
                       children: [
                         Center(
                             child:
-                                Image(image: AssetImage('assets/icons/red.png'))),
+                            Image(image: AssetImage('assets/icons/red.png'))),
                         SizedBox(
                           height: height * 0.12,
                         ),
                         Text(
-                          'Logining',
+                          'Register',
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
-                              .copyWith(color: Colors.black, fontSize: 30),
+                              .copyWith(color: Colors.black, fontSize: 30.sp),
                         ),
                         Text(
-                          'Enter Your email and password',
+                          'Enter Your personal Data',
                           style: Theme.of(context)
                               .textTheme
                               .caption!
-                              .copyWith(color: Colors.grey, fontSize: 12),
+                              .copyWith(color: Colors.grey, fontSize: 12.sp),
                         ),
                         SizedBox(
                           height: height * 0.05,
@@ -104,12 +104,12 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         defaultButton(
                             function: () {
-                             if(formKey.currentState!.validate()){
-                               sl<AuthBloc>().add(SignUpEvent(
-                                   email: emailController.text,
-                                   password: passwordController.text,
+                              if(formKey.currentState!.validate()){
+                                sl<AuthBloc>().add(SignUpEvent(
+                                    email: emailController.text,
+                                    password: passwordController.text,
                                     userName: userNameController.text));
-                             }
+                              }
                             },
                             text: 'Sign Up'),
                         Row(
@@ -128,7 +128,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            );
+            ));
           },
           listener: (context, state) {
             if(state.userSignUpState==RequestState.loaded){

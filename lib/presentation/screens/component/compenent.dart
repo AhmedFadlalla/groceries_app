@@ -14,22 +14,24 @@ Widget defaultButton({
   bool isUpperCase = true,
   double radius = 10.0,
 }) =>
-    Container(
-      width: width,
-      height: 60.0,
-      margin: EdgeInsets.all(40),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
-        color: mainColor,
-      ),
-      child: MaterialButton(
-        onPressed: function,
-        child: Text(
-          isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold),
+    ScreenUtilInit(
+      builder:(context,Widget? widget)=> Container(
+        width: width,
+        height: 60.0.h,
+        margin: EdgeInsets.all(40),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.r),
+          color: mainColor,
+        ),
+        child: MaterialButton(
+          onPressed: function,
+          child: Text(
+            isUpperCase ? text.toUpperCase() : text,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
@@ -78,38 +80,40 @@ Widget defaultAuthButton({
   required var function,
   required String text,
   required Color color,
-  var fontSize=18.0,
+  var fontSize=18,
   String? image,
   bool isUpperCase = true,
   double radius = 25.0,
 }) =>
-    Container(
-      width: width,
-      height: 60.0,
-      margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius),
+    ScreenUtilInit(
+      builder:(context,Widget? widget)=> Container(
+        width: width,
+        height: 60.0.h,
+        margin: EdgeInsets.all(10.r),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.r),
 
-      ),
-      child: MaterialButton(
-        color: color,
-        onPressed: function,
-        child: Row(
-          children: [
-            Image(image: AssetImage(image??"")),
-            SizedBox(
-              width: 25,
-            ),
-            Expanded(
-              child: Text(
-                isUpperCase ? text.toUpperCase() : text,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: fontSize,
-                    fontWeight: FontWeight.w200),
+        ),
+        child: MaterialButton(
+          color: color,
+          onPressed: function,
+          child: Row(
+            children: [
+              Image(image: AssetImage(image??"")),
+              SizedBox(
+                width: 25.w,
               ),
-            ),
-          ],
+              Expanded(
+                child: Text(
+                  isUpperCase ? text.toUpperCase() : text,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w200),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_app/presentation/screens/on_boarding_screen.dart';
 import 'package:grocery_app/presentation/screens/register/login.dart';
@@ -40,54 +41,56 @@ class _SplashBodyViewState extends State<SplashBodyView> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return ScreenUtilInit(builder: (context,Widget? widget){
+      return Scaffold(
 
-      backgroundColor: mainColor,
-      body: Center(
-        child: FadeTransition(
-          opacity: feedingAnimation!,
-          child:  IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(
+        backgroundColor: mainColor,
+        body: Center(
+          child: FadeTransition(
+            opacity: feedingAnimation!,
+            child:  IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(
                     image: AssetImage('assets/icons/Group.png'),
-                  width: 70,
-                  height: 70,
-                ),
-                SizedBox(width: 8,),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
+                    width: 70.w,
+                    height: 70.h,
+                  ),
+                  SizedBox(width: 8.w,),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
                         'nectar',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                        color:lightScaffoldColor,
-                        fontSize: 40,
-                        // height: 0.1,
-                      ),
-                    ),
-                    Text(
-                      'online groceriet',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
                           color:lightScaffoldColor,
-                          fontSize: 17,
-                        height: 0.1
+                          fontSize: 40.sp,
+                          // height: 0.1,
+                        ),
                       ),
-                    )
-                  ],
-                )
-              ],
+                      Text(
+                        'online groceriet',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            color:lightScaffoldColor,
+                            fontSize: 17.sp,
+                            height: 0.1.h
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   void goToNextView() {

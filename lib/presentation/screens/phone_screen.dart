@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:grocery_app/presentation/screens/component/compenent.dart';
 import 'package:grocery_app/presentation/screens/verify_code_screen.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class PhoneScreen extends StatelessWidget {
    PhoneScreen({Key? key}) : super(key: key);
 
@@ -14,54 +14,56 @@ class PhoneScreen extends StatelessWidget {
       SystemUiOverlay.top
     ]);
     var height=MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.arrow_back_ios_new),
-              SizedBox(height: height*0.1,),
-              Text(
+    return ScreenUtilInit(builder: (context,Widget? widget){
+      return Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.arrow_back_ios_new),
+                SizedBox(height: height*0.1,),
+                Text(
                   'Enter Your mobile Number',
-                style: Theme.of(context).textTheme.headline1!.copyWith(
-                  color: Colors.black,
-                  fontSize: 25
-                ),
-              ),
-              SizedBox(height: height*0.05,),
-              IntlPhoneField(
-                decoration: const InputDecoration(
-                  labelText: 'Mobile Number',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(),
+                  style: Theme.of(context).textTheme.headline1!.copyWith(
+                      color: Colors.black,
+                      fontSize: 25.sp
                   ),
                 ),
-                controller: phoneController,
-                onChanged: (phone) {
-                  print(phone.completeNumber);
-                },
-                onSubmitted: (phone){
+                SizedBox(height: height*0.05,),
+                IntlPhoneField(
+                  decoration: const InputDecoration(
+                    labelText: 'Mobile Number',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                    ),
+                  ),
+                  controller: phoneController,
+                  onChanged: (phone) {
+                    print(phone.completeNumber);
+                  },
+                  onSubmitted: (phone){
 
-                },
-                onTap: (){
+                  },
+                  onTap: (){
 
-                },
-                onCountryChanged: (country) {
-                  print('Country changed to: ' + country.name);
-                },
-              ),
-            ],
+                  },
+                  onCountryChanged: (country) {
+                    print('Country changed to: ' + country.name);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          navigateTo(context,  VerifyCodeScreen());
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            navigateTo(context,  VerifyCodeScreen());
           },
-        child: Icon(Icons.arrow_forward_ios),
-      ),
-    );
+          child: Icon(Icons.arrow_forward_ios),
+        ),
+      );
+    });
   }
 }
